@@ -1,7 +1,7 @@
 {
   "name": "yofc-ng-table",
-  "version": "4.0.0",
-  "description": "ng-table@4.0.0 wrap",
+  "version": "4.0.1",
+  "description": "ng-table@4.0.1 wrap",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
