@@ -1,11 +1,11 @@
 {
-  "name": "yofc-ng-table",
-  "version": "4.0.2",
-  "description": "ng-table@4.0.1 wrap",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "yofc",
-  "license": "ISC"
+    "name": "yofc-ng-table",
+    "version": "4.0.3",
+    "description": "ng-table@4.0.1 wrap",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "yofc",
+    "license": "ISC"
 }
