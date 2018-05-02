@@ -727,6 +727,10 @@
                          */
                         this.count = 10;
                         /**
+                         * The number of appoint page
+                         */
+                        this.appointPage = "";
+                        /**
                          * The filter that should be applied to restrict the set of data rows
                          */
                         this.filter = {};
@@ -764,6 +768,7 @@
                         this.isCommittedDataset = false;
                         this.initialEvents = [];
                         this._params = new ParamValues();
+                        this.pages = [];
                         this._settings = this.defaultSettings;
                         // the ngTableController "needs" to create a dummy/null instance and it's important to know whether an instance
                         // is one of these
@@ -882,6 +887,7 @@
                                 number: Math.min(numPages, currentPage + 1),
                                 active: currentPage < numPages
                             });
+                            this.pages = pages;
                         }
                         return pages;
                     };
@@ -981,6 +987,14 @@
                         return page !== undefined ? this.parameters({
                             'page': page
                         }) : this._params.page;
+                    };
+                    NgTableParams.prototype.goAppointPage = function(page) {
+                        var maxPage = this.pages.length - 2;
+                        if (parseFloat(maxPage) >= parseFloat(page) && parseFloat(page) > 0) {
+                            this.parameters({
+                                'page': page
+                            });
+                        }
                     };
                     NgTableParams.prototype.parameters = function(newParameters, parseParamsFromUrl) {
                         if (newParameters === undefined) {
@@ -3128,7 +3142,7 @@
             function(module, exports, __webpack_require__) {
 
                 var path = 'ng-table/pager.html';
-                var html = "<div class=\"ng-cloak ng-table-pager\" ng-if=\"params.data.length\">\n  <div ng-if=\"params.total()\" class=\"pull-left\">共 {{params.total()}} 条记录</div>  <div ng-if=\"params.settings().counts.length\" class=\"ng-table-counts btn-group pull-right\">\n        <select select2 class=\"yc-table-select\"    ng-class=\"{'active':params.count() == count}\"\n ng-model=\"countIndex\" ng-init=\"countIndex=params._params.count\"  ng-change=\"params.count(countIndex)\">     <option      ng-repeat=\"count  in params.settings().counts\"     ng-value=\"count\">{{count}} 条 / 页</option>              </select>\n    </div>\n    <ul ng-if=\"pages.length\" class=\"pagination ng-table-pagination\">\n        <li class=\"page-item\" ng-class=\"{'disabled': !page.active && !page.current, 'active': page.current}\" ng-repeat=\"page in pages\" ng-switch=\"page.type\">\n            <a class=\"page-link\" ng-switch-when=\"prev\" ng-click=\"params.page(page.number)\" href=\"\"><span class=\"yf yf-angle-left\"></span></a>\n            <a class=\"page-link\" ng-switch-when=\"first\" ng-click=\"params.page(page.number)\" href=\"\"><span ng-bind=\"page.number\"></span></a>\n            <a class=\"page-link\" ng-switch-when=\"page\" ng-click=\"params.page(page.number)\" href=\"\"><span ng-bind=\"page.number\"></span></a>\n            <a class=\"page-link\" ng-switch-when=\"more\" ng-click=\"params.page(page.number)\" href=\"\">&#8230;</a>\n            <a class=\"page-link\" ng-switch-when=\"last\" ng-click=\"params.page(page.number)\" href=\"\"><span ng-bind=\"page.number\"></span></a>\n            <a class=\"page-link\" ng-switch-when=\"next\" ng-click=\"params.page(page.number)\" href=\"\"><span class=\"yf yf-angle-right\"></span></a>\n        </li>\n    </ul>\n</div>\n";
+                var html = "<div class=\"ng-cloak ng-table-pager\" ng-if=\"params.data.length\">\n  <div ng-if=\"params.total()\" class=\"pull-left\">共 {{params.total()}} 条记录</div>\n <div class=\"ng-table-appointBox\" ng-if=\"pages.length\">\n <span>跳至</span>\n <input type=\"number\" onkeyup=\"value=value.replace(/[^\\d]/g,'')\" ng-model=\"params.appointPage\">\n<span>页</span>\n <a class=\"page-link\" ng-click=\"params.goAppointPage(params.appointPage)\" href=\"\">GO</a>\n </div>\n <div ng-if=\"params.settings().counts.length\" class=\"ng-table-counts btn-group pull-right\">\n        <select select2 class=\"yc-table-select\"    ng-class=\"{'active':params.count() == count}\"\n ng-model=\"countIndex\" ng-init=\"countIndex=params._params.count\"  ng-change=\"params.count(countIndex)\">     <option      ng-repeat=\"count  in params.settings().counts\"     ng-value=\"count\">{{count}} 条 / 页</option>              </select>\n    </div>\n    <ul ng-if=\"pages.length\" class=\"pagination ng-table-pagination\">\n        <li class=\"page-item\" ng-class=\"{'disabled': !page.active && !page.current, 'active': page.current}\" ng-repeat=\"page in pages\" ng-switch=\"page.type\">\n            <a class=\"page-link\" ng-switch-when=\"prev\" ng-click=\"params.page(page.number)\" href=\"\"><span class=\"yf yf-angle-left\"></span></a>\n            <a class=\"page-link\" ng-switch-when=\"first\" ng-click=\"params.page(page.number)\" href=\"\"><span ng-bind=\"page.number\"></span></a>\n            <a class=\"page-link\" ng-switch-when=\"page\" ng-click=\"params.page(page.number)\" href=\"\"><span ng-bind=\"page.number\"></span></a>\n            <a class=\"page-link\" ng-switch-when=\"more\" ng-click=\"params.page(page.number)\" href=\"\">&#8230;</a>\n            <a class=\"page-link\" ng-switch-when=\"last\" ng-click=\"params.page(page.number)\" href=\"\"><span ng-bind=\"page.number\"></span></a>\n            <a class=\"page-link\" ng-switch-when=\"next\" ng-click=\"params.page(page.number)\" href=\"\"><span class=\"yf yf-angle-right\"></span></a>\n        </li>\n    </ul>\n    </div>\n";
                 var angular = __webpack_require__( /*! angular */ 0);
                 angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
                 module.exports = path;
