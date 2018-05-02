@@ -989,7 +989,7 @@
                         }) : this._params.page;
                     };
                     NgTableParams.prototype.goAppointPage = function(page) {
-                        var maxPage = this.pages.length - 2;
+                        var maxPage = this.pages[this.pages.length - 2].number;
                         if (parseFloat(maxPage) >= parseFloat(page) && parseFloat(page) > 0) {
                             this.parameters({
                                 'page': page
