@@ -1,6 +1,6 @@
 {
     "name": "yofc-ng-table",
-    "version": "4.0.12",
+    "version": "4.0.13",
     "description": "ng-table@4.0.1 wrap",
     "main": "index.js",
     "scripts": {
